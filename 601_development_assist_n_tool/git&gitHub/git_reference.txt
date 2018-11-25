@@ -1,0 +1,298 @@
+//中括號內表示自己想設定的內容
+//凡中括號顯示在指令中的[]都不要打
+//murmur:表示自我註解
+//→表示步驟
+
+1.初始化
+	git init
+
+2.設定使用者和EMAIL
+	git config --global user.name
+	git config --global user.email 
+
+	2.1特定專案設定不同使用者
+		git config --local user.name
+		git config --local user.email
+
+		離開目錄後還是會使用預設的global name&email
+
+3.檢視目錄
+	git config --list
+	git config -l
+
+4.縮減git的指令方式
+	4.1指令只有一字
+		git config --global alias.[br] branch
+
+		git branch tsai等同於
+		git br tsai
+
+		輸入git config -l 也可以看到自己有設定那些簡寫法
+
+	4.2指令中間有空格，加上引號框起來
+		git config --global alias.l "config --list"
+
+		git config --list等同於
+		git l		
+
+5.看現在檔案追蹤的狀態
+	git status
+
+6.加入暫存區
+	6.1用bash
+		git add [檔案名稱]
+
+	6.2用sourceTree
+		→點選左側file status
+		→點選Unstaged file塊中的檔案右鍵
+		→選add(有些會顯示add to index)
+
+	意思是一樣的，git中的index和暫存區是一樣的!
+
+	6.3一次加入多個檔案
+		git add *.html
+		將所有html檔案加入暫存區
+
+	6.4一次加入所有檔案
+		git add --all
+
+7.將檔案從暫存區移除
+	7.1用bash
+		git rm --cached [檔案名稱]
+
+	7.2用sourceTree
+		→點選左側file status
+		→點選Staged file塊中的檔案右鍵
+		→選stop tracking
+
+		ALERT! 選remove會直接把檔案刪除!!!
+
+	7.3一次取消多個檔案加入暫存區
+		git rm --cached *.html
+
+	7.4一次取消所有檔案加入暫存區
+		bash 不行
+		sourceTree 圈起來選stop tracking
+
+8.將檔案加入儲存庫
+	8.1用bash
+		git commit -m ["想寫的東西"]
+
+	8.2用sourceTree
+		下方輸入訊息後commit
+
+9.commit的訊息
+	9.1若8.1後方的[]內沒寫東西，git不會讓你上傳
+
+	9.2可以輸入--allow-empty參數允許不打訊息
+		git commit --allow-empty -m ""
+
+10.工作區、暫存區、儲存區
+	工作目錄(working directory)→暫存區(staging area)→儲存庫(repository)
+							git add			git commit -m "xxx"
+
+	git add 將修改的檔案加入暫存區
+	git commit 將在暫存區中的檔案加入儲存庫
+
+	10.1一條指令直接將工作區檔案加放入儲存庫
+		git commit -a -m ["xxx"]
+		前提是這個檔案已經在之前先commit到儲存庫中了，若為untracked的檔案(沒有add過的檔案無效)
+
+	10.2sourceTree中可以勾一勾填寫資訊就commit出去
+
+11.看commit紀錄
+	11.1用git
+		git log
+		會出現例如下方的三行字
+		------------------------------------
+		Author: tsai <xxx@gmail.com>
+		Date: Sun Nov 25 00:01:54 2018 +0800
+			first commit
+		------------------------------------
+		分別為"who、when、what"
+
+	11.2git log的其他參數
+		11.2.1多行顯示
+			不打或--graph
+			git log --graph
+			git log預設與git log --graph 相同
+
+		11.2.2簡化顯示方式(一行字)
+			--oneline
+			git log --oneline 
+		
+		11.2.3顯示特定作者
+			--author
+			git log --oneline --author="tsai"
+
+		11.2.4顯示特定多個作者
+			\|
+			git log --oneline --auhor="tsai\|fang"
+
+			*｜(或者) \是反轉字元
+
+		11.2.5想找commit訊息裡特定字串
+			--grep
+			git log --grep="first"
+			git log --oneline --grep="first"
+
+		11.2.6想找commit檔案中的特定字串
+			-S
+			git log -S ["xxx"];
+
+		11.2.7想找特定期間的commit
+			--since
+			--until
+			--after
+			git log --since="3pm" --until="4pm" --after="2018-11"
+
+		11.2.8想看特定檔案的commit
+			在log後方加入檔案名稱
+			git log [檔案名稱]
+
+		11.2.9想看特定檔案的修改紀錄
+			11.2.9.1用git
+			git log -p [檔案名稱]
+			
+			11.2.9.2用sourceTree
+			該檔案右鍵選擇log selected
+
+			顯示畫面中的，-代表刪除/+代表新增
+
+	11.3用sourceTree(較推薦)
+		●左側欄位BRANCHES下的(murmur:平常在看的那些合併線)
+		●越新的commit在越上面
+		●description上除了commit訊息外，有底色的表示分支
+		●實心圈圈表示commit，空心圈圈表示目前head位置，指的是這個分支的最前端
+		●commit是SHA演算法的識別號碼
+
+		要做上方bash方式篩選
+		下方有個search可直覺使用
+	11.4
+
+12.刪除和取消追蹤檔案(狀況題)
+	在git中不管是改檔案名稱或是變更檔案，對git來說都是一種修改
+	12.1用git
+		12.1.1刪除檔案後add
+			rm xxx.html
+			add xxx.html
+			以上兩個步驟等同於下面這個
+			git rm xxx.html
+			等同刪除檔案
+
+		12.2加上 --cached參數
+			git rm xxx.html --cached
+			將檔案變成untracked狀態
+
+	12.2用sourceTree
+		12.2.1相當於remove
+
+		12.2.2相當於stop tracking
+	
+13.修改檔案名稱(狀況題)
+	13.1用git
+		rm test.txt ttt.txt
+		用上面這句法對git來說是兩件事情，可用git status看出
+		1.刪除 test.txt
+		2.新增 ttt.txt
+
+		add, commit後會顯示renamed來表示修改名稱這件事(因為內容沒變)
+
+		*test.txt和TEST.txt是一樣的檔案，雖然檔案名稱會變，但是指向同一個檔案
+
+	13.2用sourceTree
+		對檔案名稱右鍵選擇move
+		完成後前面會有個
+		(murmur:就先不追究為什麼重新命名叫做move...)
+
+14.修改最後一次commit的訊息(狀況題)
+	--amend
+	14.1用git
+	如果一氣之下在訊息中寫了wtf，可以用--amend修改，連git log都看不出來喔~~
+	原本是
+	git commit -m "wtf"
+	要修改wtf訊息
+	git commit --amend -m "change msg"
+
+	14.2用sourceTree
+	→選擇左上角commit
+	→下方下拉選項改成amend latest commit
+	→輸入新的commit內容
+	→點選commit
+
+
+	●這樣log出的訊息就會變成change msg囉!
+	●對git來說這是一次新的commit雖然時間沒變(可以看log訊息的SHA碼不同)
+	●要修改之前的紀錄要用到rebase
+
+15追加檔案到最近一次commit中(狀況題)
+	--amend
+	--reset
+	15.1.1用--amend/用git
+		→一樣先add
+		commit時不要編輯訊息
+		→git commit --amend --no-edit
+
+		--no-edit 表示我不要編輯commit訊息
+		(murmur:有點像障眼法欸)
+
+	15.1.2用--amend/用sourceTree
+		→丟到暫存區
+		→下拉選單選amend last commit
+		→訊息改不改都可，就會並到最後一次的commit了
+
+	15.2.1
+
+	15.2.2
+
+
+16.將不想放在git裡的檔案移除(對git來說就是忽略)
+	建立一個 .gitignore檔案
+	內容只要打要忽略的資料夾或檔案路徑，如
+
+	t3.txt
+	gulpfile.js
+
+	ALERT!!在.gitignore前就出現的檔案不會被忽視，如果要被忽視要可以打 git rm --cached
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+其他冷知識
+
+001.寫入內容後創建檔案，神奇的句子!!
+	echo "hello, git" > welcome.html
+
+	將建立welcome.html檔案並寫入hello, git
+
+
+002."--all"和"."的差異
+	002.1git 1.x版中
+		--all會刪除檔案
+		.不會刪除檔案
+
+	002.2git 2.x版中
+		兩個意思一樣
+		都會刪除檔案
+
+	002.3
+		如果進到專案子目錄
+		git add . 只會將子目錄中有改變的加入暫存區
+		git add --all會將根目錄/子目錄所有內容都加入暫存區
+
+003 
+
+
