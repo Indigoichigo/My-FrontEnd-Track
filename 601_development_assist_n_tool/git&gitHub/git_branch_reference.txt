@@ -1,0 +1,113 @@
+//中括號內表示自己想設定的內容
+//凡中括號顯示在指令中的[]都不要打
+//murmur:表示自我註解
+//→表示步驟
+
+1.新建分支
+	1.1用git
+		gir branch [新的分支名稱]
+
+	1.2用sourceTree
+		→點選上方Branch
+		→輸入名稱
+		→如果勾選下方checkout new branch創建完會切換到該分支
+
+2.修改分支名稱
+	-m
+	2.1用git
+		將dog改成dooog
+		git branch -m dog dooog
+
+	2.2用sourceTree
+		→點選右方branches中欲重新命名的branch
+		→右鍵Rename ...
+
+3.刪除分支
+	-d
+	3.1用git
+		git branch -d dog
+
+	3.2用sourceTree
+		→點選右方branches中欲刪除的branch
+		→右鍵Delete ...
+
+	-D
+	大D可以強制刪除
+
+4.合併分支
+	merge
+	4.1用git
+		跳到要合併的分支，例如要合併別人的是master分支，要被合併的是cat分支
+		git checkout master
+		git merge cat
+
+	4.2用sourceTree
+		→點選右方branches中落後的的branch
+		→右鍵merge xxx into current branch
+			xxx是落後的分支通常就是點選的那個
+
+
+	合併後的分支要不要留都沒差!
+
+5.快轉模式(fast-forward)和--no-ff指令
+	假設master分支快了cat分支兩次commit
+	這時在cat分支上，git merge master
+	此時git會發現master只是多了某些東西，會自動用fast-forward進行合併
+	這樣的話，sourceTree上就不會有小耳朵(長出另一條顏色的線)
+	如果硬要出現小耳朵要打 git merge master --no-ff
+
+	結論...其實沒甚麼差別
+
+6.合併分支的另一種方式(rebase)
+	現在在cat分支，目前是落後的
+	1.用git
+		git rabase dog
+	
+	以dog分支為基準，將cat分支接到dog更前面
+	這時最新的commit會是cat
+
+	2.用sourceTree
+		→留在cat分支
+		→點選dog分支右鍵 rebase current changes(這個current changes是cat分支) onto dog
+
+	●用rabase時，git不會做出一個commit
+	●rebase比較像是複製貼上的感覺
+	●原本的檔案會沒有head指向他，過一段時間會自動被git回收
+
+7.如果取消rebase
+	如果用git rest HEAD^
+	他會回到被接上分支的前一個commit，而不是rabase前的狀態
+
+	7.1方法一
+		→git reflog
+		→查詢rebase前的commit是哪次
+		→git reset [SHA]
+
+	7.2方法二
+		→git reset ORIG_HEAD
+		因為上一次head指向是被rebase的分支(最新的那個)
+
+
+
+
+
+	
+
+
+
+
+其他冷知識
+
+003.刪除掉分支如何救回來
+	ALERT!!! 分支只是一個指向某個 Commit 的指標，刪除這個指標並不會造成那些 Commit 消失。
+
+	只要記得SHA，就可以讓不見的分支恢復
+	→git branch dog(b174a5a)
+		dog分支的SHA為b174a5a
+	→git branch -d dog
+		手殘刪掉
+	→git branch new_dog b174a5a
+		又出現了!
+
+
+

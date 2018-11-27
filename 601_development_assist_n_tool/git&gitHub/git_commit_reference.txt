@@ -255,19 +255,103 @@
 
 	ALERT!!在.gitignore前就出現的檔案不會被忽視，如果要被忽視要可以打 git rm --cached
 
+17.查詢某行程式碼是誰寫的(狀況題)
+	git blame
+	17.1用git
+		git blame [檔案名稱]
+
+		若要查詢特定行數
+		-L
+		git blame -L 5,10 [檔案名稱](查詢5~10行程式碼)
 
 
+	17.2用sourceTree
+		→對檔案案右鍵
+		→選擇annotate selected
 
+18.不小心刪除某個檔案或目錄(狀況題)
+	若用rm [檔案名稱]刪除檔案
+	只要之前曾經commit過這個檔案，都可以救回來變成上一次commit的狀態
+	但如果是新增的檔案沒有commit過，那也救不回來
 
+	18.1用git
+	狀況一：沒commit過，沒救
+		→新增某個aaa.txt檔案
+		→rm aaa.txt
+			此時刪除檔案
+		→git checkout aaa.txt
+			此時aaa.txt依舊消失
 
+	狀況二：commit過，可用checkout救回
+		→新增某個aaa.txt檔案
+		→git add aaa.txt
+		→git commit -m "aaa";
+		→rm aaa.txt
+			此時刪除檔案
+		→git checkout aaa.txt
+			此時aaa.txt回來
 
+	git checkout .
+	可以一次把所有rm的檔案救回
 
+	18.2用sourceTre
+		點選檔案右鍵reset
 
+	git checkout 後面接分支名稱會跳到分支
+	git checkout 後密接檔案名稱會把暫存區的檔案覆蓋工作目錄的檔案
 
+	拿更久之前的版本回來
+	git checkout HEAD~2 aaa.txt
+	拿兩個版本以前的回來覆蓋現在工作目錄的檔案
 
+19.退回到某次commit
+	git reset
+	19.1.2用git/相對方式
+		先用 git log --oneline 查詢commit狀態，前面會有那個像亂碼的SHA
+		git reset [亂碼名稱]^
+			ex git reset e12d8ef^
 
+		1個^代表前一次，2個^代表前兩次，依此類推
+			ex git reset e12d8ef^^
+		如要倒回更久之前的本版，例如五次通常會寫成~5
+			ex git reset e12d8ef~5
+		如果知道要倒回到哪次的commit可以直接指定
+			ex git reset 85e7e30
 
+	19.1.2用sourceTree/相對方式
+		→選擇要倒回的commit節點
+		→右鍵選擇reset master to this commit
 
+20reset的三種模式
+	reset分別有--mixed, --soft, --hard三種模式，default為--mixed
+
+	--mixed模式
+	這個模式會把暫存區的檔案丟掉，但不回動到工作目錄的檔案，也就是說commit回來的檔案，會留在工作目錄，但不會存在暫存區
+
+	--soft模式
+	這個模式會留工作目錄和暫存區的檔案，只有head移動，commit回來的檔案會放在暫存區
+
+	--hard模式
+	這個模式會把工作目錄和暫存區的檔案都丟掉
+
+	簡單說
+	--mixed 丟回工作目錄
+	--soft 丟回暫存區
+	--hard 直接丟掉
+
+	reset的意思雖然是重新設定，但是在git中比較像是前往某個指定的commit
+
+21用reset --hard 回到之前的commit怎麼在回來?
+	21.1原本有用git log --oneline看每次commit紀錄的話
+		git reset [想回去版本的sha號碼] --hard
+
+	21.2沒有用git log看過的話
+		→git reflog
+		→找到該次commit的版本
+		→git reset [想回去版本的sha號碼] --hard
+
+		log是看commit紀錄
+		reflog則紀錄每次head的移動
 
 
 
@@ -293,6 +377,5 @@
 		git add . 只會將子目錄中有改變的加入暫存區
 		git add --all會將根目錄/子目錄所有內容都加入暫存區
 
-003 
 
 

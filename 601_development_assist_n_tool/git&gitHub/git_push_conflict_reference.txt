@@ -1,0 +1,103 @@
+//中括號內表示自己想設定的內容
+//凡中括號顯示在指令中的[]都不要打
+//murmur:表示自我註解
+//→表示步驟
+
+1.推到遠端上的伺服器，要先建立遠端節點
+	git remote add origin [git@....];
+
+	●git remote:與遠端有關的操作
+	●add:加入遠端節點
+	●origin:代名詞，指向後面那串git伺服器
+		這個代名詞隨時可以改
+
+
+2.-u指令
+	-u = upstream，概念就是「另一個分支」
+	每個分支可以設定一個上游，會只向該分支
+
+	●在push時如果下 git remote -u origin master
+	●下次執行git push時git會自動推向origin master
+
+	當沒有設定-u時每次都要清楚根git說要推向哪個分支
+
+3.git push origin master的master
+	完整個命令如下
+	git push origin master:master
+	意思是把本地的master分支推到遠端的master分支並更新，如果沒有master，就建立一個master
+	故 git push origin master:cat就是將本地master分支推到遠端cat分支
+
+
+4.origin master就只是另一條分支
+
+5.pull
+	pull = fetch + merge
+	若要在pull時用rebase
+	git pull --rebase
+
+6.推不上去?(狀況題)
+	$ git push
+	To https://github.com/eddiekao/dummy-git.git
+	 ! [rejected]        master -> master (fetch first)
+	error: failed to push some refs to 'https://github.com/eddiekao/dummy-git.git'
+	hint: Updates were rejected because the remote contains work that you do
+	hint: not have locally. This is usually caused by another repository pushing
+	hint: to the same ref. You may want to first integrate the remote changes
+	hint: (e.g., 'git pull ...') before pushing again.
+	hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+	(mumur:每次都碰到的問題 ...)
+
+	會發生這種狀況是因為遠端的內容比現在還新
+
+	6.1先拉在推
+		git pull --rebase
+
+	6.2無視規則硬推
+		git push -f
+		git push -force
+
+		但這樣就會把你pull時push時中間的人push的檔案蓋過去 ... 就知道 ... 呵呵呵!
+
+7.刪除遠端分支
+	7.1在github
+		進到分支目錄，點後方紅色垃圾桶
+
+	7.2在sourceTree
+		→右方Remote找到分支
+		→右鍵Delete
+
+	7.3在git
+		→git push origin :dog
+			想成推送本地空的分支覆蓋遠端dog分支
+
+8.merge發生衝突時
+	8.1用git
+		開啟檔案修改要留著的部分還有那些git出現的標示，修改好後存檔
+		重新add、commit
+
+
+	8.2如果不是文字檔，是圖片或其他二進位檔呢?
+		git merge dog(對方)
+
+		8.2.1用git
+			如果要用自己的(master)
+			→git checkout --ours [檔案名稱]
+
+			如果要用對方的(dog)
+			→git checkout --theirs [檔案名稱]
+
+		8.2.2用sourceTree
+			→在unstaged files中衝突的檔案點選右鍵
+
+			如果要用自己的(master)
+			→選擇resoloved Using 'Mine'
+			如果要用對方的(dog)	
+			→選擇resoloved Using 'Theirs'
+
+
+9.rebase發生衝突
+	如果rebase過程中發生衝突，一樣開啟檔案修改意留著的部分，修改好後存檔
+	→重新add
+	→然後git rebase --continue
+
