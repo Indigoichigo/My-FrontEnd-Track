@@ -1,0 +1,44 @@
+</>表示指令
+
+CRUD分別代表Create、Read、Update、Delete
+
+1.SELECT
+	</>SELECT [ALL | DISTINCT] 欄位名
+		FROM 資料表名
+		WHERE [給定條件]
+		GROUP BY 欄位名[,欄位名]
+		HAVING [給定條件]
+		ORDER BY 欄位名[,欄位名]
+
+	DISTINCT 可以過濾重複出現的值。
+	例如下面表格有一個欄位
+		--------
+		Location
+		--------
+		Taipei
+		Yunlin
+		Taipei
+		Chiayi
+		--------
+	</>select distinct Location FROM emp;
+		--------
+		Location
+		--------
+		Taipei
+		Yunlin
+		Chiayi
+		--------
+
+
+2.INSERT
+	INSERT INTO [表格名稱] (欄位名1,欄位名2,欄位名3) VALUES (值1, 值2, 值3)
+	INSERT INTO [表格名稱] VALUES (值1, 值2, 值3)
+
+
+3.UPDATE
+	UPDATE [表格名稱] SET 欄位名1=值1, 欄位名2=值2, 欄位名3=值3 WHERE [給定條件]
+
+
+4.DELETE
+	DELETE FROM [表格名稱] WHERE [給定條件]
+	
