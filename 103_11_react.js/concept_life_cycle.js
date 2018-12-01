@@ -3,6 +3,7 @@
 
 	學習來源
 	https://ithelp.ithome.com.tw/articles/10185194
+	http://andyyou.logdown.com/posts/370308
 	
 */
 /*
@@ -60,7 +61,7 @@
 		4.2.2 若沒有props可以只寫super()
 		
 	4.3 componentWillMount()
-		4.3.1component將要被mount上畫面時，會發生在第一次render之前
+		4.3.1component將要被mount上畫面時，會發生在第一次render前
 
 		4.3.2在這裡設定的state不會被re-render
 	
@@ -73,7 +74,8 @@
 			eg3.addEventListener
 
 	執行順序 constructor() → componentWillMount() → render() → componentDidMount()
-							不要用setState()			不要用setState()
+													不要用setState()
+							
 
 5.Updating method
 	5.1 componentWillReceiveProps(nextProps)
@@ -146,7 +148,14 @@
 
 8.不要使用setState()的地方
 	●render()
-	●componentWillAmount()
 	●shouldComponentUpdate()
 	●componentWillUpdate()
+	●componentWillUnmount()
+
+9.其他要點
+	9.1在複合式元件下，子元件的生命週期從父元件render之後開始發動
+	
+	9.2一旦父元件發生改變，子元件的componentWillReceiveProps就是會觸發。
+
+	9.3也就是每次父元件更新，子元件都會重新渲染(Update流程)
 

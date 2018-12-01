@@ -253,7 +253,7 @@
 	t3.txt
 	gulpfile.js
 
-	ALERT!!在.gitignore前就出現的檔案不會被忽視，如果要被忽視要可以打 git rm --cached
+	ALERT!!在.gitignore前就出現的檔案不會被忽視，如果要被忽視可以打 git rm --cached
 
 17.查詢某行程式碼是誰寫的(狀況題)
 	git blame
