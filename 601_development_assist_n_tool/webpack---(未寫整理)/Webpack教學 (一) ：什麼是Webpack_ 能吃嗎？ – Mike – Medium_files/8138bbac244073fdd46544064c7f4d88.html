@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)https://medium.com/media/8138bbac244073fdd46544064c7f4d88?postId=15ebfa2496d9 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>簡單的entry跟output設定 – Medium</title><meta name="description" content="簡單的entry跟output設定. GitHub Gist: instantly share code, notes, and snippets."><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style></head><body><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./2d4ebb78c6c37ba780e9e22c3b0fb197.js.download" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-13deff4f8c8e95f7a1da017b6983e81f.css"><div id="gist93283788" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-webpack-config-js" class="file">
+    
+
+  <div itemprop="text" class="blob-wrapper data type-javascript ">
+      <table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-webpack-config-js-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-webpack-config-js-LC1" class="blob-code blob-code-inner js-file-line">	entry<span class="pl-k">:</span> {</td>
+      </tr>
+      <tr>
+        <td id="file-webpack-config-js-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-webpack-config-js-LC2" class="blob-code blob-code-inner js-file-line">		index<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>./js/index.js<span class="pl-pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-webpack-config-js-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-webpack-config-js-LC3" class="blob-code blob-code-inner js-file-line">		about<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>./js/about.js<span class="pl-pds">'</span></span></td>
+      </tr>
+      <tr>
+        <td id="file-webpack-config-js-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-webpack-config-js-LC4" class="blob-code blob-code-inner js-file-line">	},</td>
+      </tr>
+      <tr>
+        <td id="file-webpack-config-js-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-webpack-config-js-LC5" class="blob-code blob-code-inner js-file-line">	output<span class="pl-k">:</span> {</td>
+      </tr>
+      <tr>
+        <td id="file-webpack-config-js-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-webpack-config-js-LC6" class="blob-code blob-code-inner js-file-line">		path<span class="pl-k">:</span> <span class="pl-smi">path</span>.<span class="pl-en">resolve</span>(<span class="pl-c1">__dirname</span>, <span class="pl-s"><span class="pl-pds">"</span>./dist<span class="pl-pds">"</span></span>),</td>
+      </tr>
+      <tr>
+        <td id="file-webpack-config-js-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-webpack-config-js-LC7" class="blob-code blob-code-inner js-file-line">		filename<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>./js/[name].js<span class="pl-pds">'</span></span>,</td>
+      </tr>
+      <tr>
+        <td id="file-webpack-config-js-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-webpack-config-js-LC8" class="blob-code blob-code-inner js-file-line">	},</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/MikeCheng1208/2d4ebb78c6c37ba780e9e22c3b0fb197/raw/56de1de4112dfc3be157ff3b3a05012501321037/webpack.config.js" style="float:right">view raw</a>
+        <a href="https://gist.github.com/MikeCheng1208/2d4ebb78c6c37ba780e9e22c3b0fb197#file-webpack-config-js">webpack.config.js</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200;function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height); resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);}maybeResize();</script></body></html>
