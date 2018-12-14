@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+	<script src="https://unpkg.com/redux@3.7.2/dist/redux.min.js"></script>
+	<title>React-Redux_CDN_Template</title>
+
+	<style>
+		.switchBlock {
+			height: 50px;
+			width: 100px;
+			background-Color: #ccc;
+			border-Radius: 25px;
+			position: relative;
+		}
+
+		.switchOff {
+			height: 50px;
+			width: 50px;
+			background-Color: #999;
+			border-Radius: 25px;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			transition: 0.5s;
+		}
+
+		.switchOn {
+			left: 50px;
+			background-Color: #ff0;
+		}
+	</style>
+</head>
+<body>
+
+	<script type="text/babel">		
+
+		class Switch extends React.Component {
+			constructor(props) {
+				super(props);
+				this.state = store.getState();
+			}
+
+			render() {
+				return (
+					<div className="switchBlock" onClick={this._handleSwitch.bind(this)}>
+						<div className={this.state.on? 'switchOff switchOn': 'switchOff'}>
+						</div>
+					</div>
+				)
+			}
+
+			componentWillUnount() {
+				this.unsubscribe();
+			}
+
+			componentDidMount() {
+				this.unsubscribe = store.subscribe(this._refresh.bind(this));
+			}
+
+			_refresh() {
+				this.setState(store.getState());
+			}
+
+			_handleSwitch() {
+				store.dispatch({
+					type: 'switchOnOff',
+				})
+			}
+		}
+
+
+		let store;
+		let reducer = function(state, action) {
+			switch(action.type) {
+				case 'switchOnOff':			
+					return {on: !state.on};
+				default:
+					return state;
+			}
+		};
+
+		window.addEventListener('load', () => {
+			store = Redux.createStore(reducer, {on: false});
+			ReactDOM.render(<Switch />, document.body);
+		})
+	</script>
+
+
+
+</body>
+</html>

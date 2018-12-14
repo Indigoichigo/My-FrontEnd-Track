@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+	<script src="https://unpkg.com/redux@3.7.2/dist/redux.min.js"></script>
+</head>
+<body>
+    
+
+
+
+    <script type="text/babel">
+        class CounterSection extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = store.getState();
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h2>Hello, Counter</h2>
+                        <p>count: {this.state.num}</p>
+                        <button onClick={this._refreshPlus.bind(this)}>Plus</button>
+                        <button onClick={this._refreshMinus.bind(this)}>Minus</button>
+                    </div>
+                )
+
+            }
+
+            componentDidMount() {
+                this.unsubscribe = store.subscribe(this._ChangeNum.bind(this));
+            }
+
+            componentWillUnmount() {
+                this.unsubscribe();
+            }
+
+            _ChangeNum() {
+                this.setState(this.state = store.getState())
+            }
+
+            _refreshPlus() {
+                store.dispatch({
+                    type: 'changeNumPlus',
+                })
+            }
+
+            _refreshMinus() {
+                store.dispatch({
+                    type: 'changeNumMinus',
+                })
+            }
+
+        }
+
+        let store;
+        let reducer = (state, action) =>  {
+            switch (action.type) {
+                case 'changeNumPlus':
+                    return {num: state.num + 1};
+                case 'changeNumMinus':
+                    return {num: state.num - 1};
+                default:
+                    return state;
+            }
+        }
+
+
+        window.addEventListener('load', () => {
+            store = Redux.createStore(reducer, {num: 0});
+            ReactDOM.render(<CounterSection />, document.body);
+        })
+    </script>
+
+</body>
+</html>

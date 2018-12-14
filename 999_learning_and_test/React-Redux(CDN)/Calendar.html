@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+	<script src="https://unpkg.com/redux@3.7.2/dist/redux.min.js"></script>
+	<title>React-Redux_CDN_Template</title>
+
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: 'Microsoft JhengHei';
+		}
+
+		.calendar_wrapper{
+			width: 310px;
+		}
+
+		.calendar_header {
+			font-size: 0;
+			background-color: #ccc;
+		}
+
+		
+		.calendar_header > div {
+			font-size: 16px;
+			text-align: center;
+			display: inline-block;
+			vertical-align: middle;
+			width: 60%;
+		}
+
+		.calendar_header > p {
+			font-size: 16px;
+			text-align: center;
+			display: inline-block;
+			vertical-align: middle;
+			width: 20%;
+			cursor: pointer;
+			background-color: #777;
+			padding: 12px 0;
+		}
+
+		.show_week {
+			font-size: 16px;
+			
+			
+		}
+
+		.show_days {
+			font-size: 16px;
+		}
+
+		.ul, li {
+			list-style: none;
+			font-size: 0;
+		}
+
+		li {
+			display: inline-block;
+			vertical-align: middle;
+			width: 14.2856%;
+			font-size: 16px;
+			text-align: center;
+			box-sizing: border-box;
+			border: 1px solid #ddd;
+		}
+
+		.show_days::after {
+			content:'';
+			display: block;
+			clear: both;
+		}
+
+		.day {
+			float: left;
+			width: 14.2856%;
+			text-align: center;
+			font-size: 16px;
+			box-sizing: border-box;
+			border: 1px solid #ddd;
+		}
+	</style>
+</head>
+<body>
+
+	<script type="text/babel">
+
+		class Day extends React.Component {
+			render() {
+				return (
+					<div className="day">{this.props.num}</div>
+				)
+			}
+		}
+
+		class Calendar extends React.Component {
+			
+			constructor(props) {
+				super(props);
+
+				let monthInfo = this._calculateMonth(this.props.info.y, this.props.info.m);
+				
+				this.state = {
+					currentYear: this.props.info.y,
+					currentMonth: this.props.info.m,
+					monthArr: monthInfo.monthArr,
+					monthLenth: monthInfo.monthLenth,
+				}	
+			}
+
+			componentWillMount() {
+				
+				this.setState({monthArr: monthInfo.monthArr });
+				this.setState({monthLenth: monthInfo.monthLenth });
+			}
+
+			_calculateMonth(yearVal, monthVal) {
+				//每個月最大天數
+				let monthMaxDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];	
+				let currentMonthFirstDay = new Date(yearVal, monthVal, 1);
+
+				let monthArr = [];
+
+				//判斷閏年並推入更改二月
+				if ((yearVal % 4 == 0 && yearVal %100 != 0 ) || (yearVal % 400 == 0)) {
+					monthMaxDays[1] = 29;
+				} else {
+					monthMaxDays[1] = 28;
+				}
+
+				for ( let i = 1 ; i <= monthMaxDays[monthVal] ; i++ ) {
+					monthArr.push(i);
+				}
+
+				for ( let i = 0 ; i <= currentMonthFirstDay.getDay()-1 ; i++ ) {
+					monthArr.splice(0, 0, '　');
+				}
+				console.log('in the func');
+				return {monthArr: monthArr, monthLenth: monthArr.length}
+			};
+
+			_prevMonth() {
+				if (this.state.currentMonth == 0) {
+					this.setState({currentMonth: 11 });
+					this.setState({currentYear: this.state.currentYear -1 });
+				} else {
+					this.setState({currentMonth: this.state.currentMonth -1 });
+				}
+
+				let monthInfo = this._calculateMonth(this.state.currentYear, this.state.currentMonth);
+
+				console.log('prev');
+
+				this.setState({monthArr: monthInfo.monthArr });
+				this.setState({monthLenth: monthInfo.monthLenth });
+			}
+
+			_nextMonth() {
+				if (this.state.currentMonth == 11) {
+					this.setState((prevState) => {
+						return {currentMonth: 0 }
+					});
+					this.setState((prevState) => {
+						return {currentYear: this.state.currentYear +1 }
+					});
+				} else {
+					this.setState((prevState) => {
+						return {currentMonth: this.state.currentMonth +1 }
+					});
+				}
+
+				let monthInfo = this._calculateMonth(this.state.currentYear, this.state.currentMonth);
+
+				console.log('next');
+
+				this.setState({monthArr: monthInfo.monthArr });
+				this.setState({monthLenth: monthInfo.monthLenth });
+			}
+
+			componentWillMount() {
+				
+			}
+
+			render() {
+				let cells = [];
+
+				for( let i = 0 ; i < this.state.monthLenth ; i++) {				
+					cells.push(<Day key={i} num={this.state.monthArr[i]}/>);
+				}
+				
+				return (
+					<div className="calendar_wrapper">
+						<div className="calendar_header">
+							<p className="month_btn">
+								<span onClick={this._prevMonth.bind(this)}>上個月</span>
+							</p>
+							<div className="calendar_title">
+								<p className="current_year">
+									{this.state.currentYear}
+								</p>
+								<p className="current_month">
+									{this.state.currentMonth + 1}
+								</p>
+							</div>
+							<p className="month_btn">
+								<span onClick={this._nextMonth.bind(this)}>下個月</span>
+							</p>
+						</div>
+						<ul className="show_week">
+							<li>Mon</li>
+							<li>Tue</li>
+							<li>Wed</li>
+							<li>Thu</li>
+							<li>Fri</li>
+							<li>Sat</li>
+							<li>Sun</li>
+						</ul>
+						<div className="show_days">
+							{cells}
+						</div>
+					</div>
+				)
+				
+			}
+		}
+
+
+		window.addEventListener('load',()=>{
+			let date = new Date;
+			ReactDOM.render(<Calendar info={{y: date.getFullYear(), m: date.getMonth()}}/>, document.body)
+		})
+	</script>
+
+
+
+</body>
+</html>

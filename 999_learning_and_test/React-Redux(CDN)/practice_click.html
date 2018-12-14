@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+	<script src="https://unpkg.com/redux@3.7.2/dist/redux.min.js"></script>
+</head>
+<body>
+    
+
+
+
+    <script type="text/babel">
+        class Item extends React.Component {
+            constructor(props) {
+                super(props)
+            }
+
+            render() {
+                return (
+                    <li>hello {this.props.level}</li>
+                )
+            }
+        }
+
+
+        class MyList extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = store.getState()
+            }
+
+            render() {
+                let cells = [];
+
+                for ( let i = 0 ; i < this.state.max ; i++) {
+                    cells.push(<Item level={i}/>);
+                }
+
+                return <ul onClick={this._refresh.bind(this)}>{cells}</ul>
+            }
+
+            componentDidMount() {
+                this.unsubscribe = store.subscribe(this._changeMax.bind(this));
+            }
+
+            componentWillUnMount() {
+                this.unsubscribe();
+            }
+
+            _changeMax() {
+                this.setState(
+                    store.getState()
+                )
+            }
+
+            _refresh() {
+                store.dispatch({
+                    type: 'changeMax',
+                    max: 10,
+                })
+            }
+
+        }
+
+        let store;
+        let reducer = function(state, action) {
+            switch (action.type) {
+                case 'changeMax':
+                    return {max: action.max};
+                default:
+                    return state;
+            }
+        }
+
+        window.addEventListener('load', () => {
+            store = Redux.createStore(reducer, {max: 3});
+            ReactDOM.render(<MyList />,
+            document.body);
+        })
+    </script>
+
+</body>
+</html>
