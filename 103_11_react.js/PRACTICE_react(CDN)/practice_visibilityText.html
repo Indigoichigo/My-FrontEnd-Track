@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+	<script src="https://unpkg.com/redux@3.7.2/dist/redux.min.js"></script>
+	<title>React-Redux_CDN_Template</title>
+</head>
+<body>
+
+	<script type="text/babel">
+		
+		// let visibility = false;
+
+		// const _handleClick = () => {
+		// 	visibility = !visibility;
+		// 	render();
+		// }
+		
+
+		// const render = () => {
+		// 	const template = (
+		// 		<div>
+		// 			<h2>visibilityText</h2>
+		// 			<button onClick={this._handleClick}>{visibility ? 'Hide the text' : 'Show me text' }</button>
+		// 			<p>{visibility && 'Here are something you can see now'}</p>
+		// 		</div>
+		// 	);
+
+		// 	ReactDOM.render(template, document.body);
+		// }
+
+		// render();
+
+		class VisibilityToggle extends React.Component {
+			constructor(props) {
+				super(props);
+				this.state = {
+					visibility: false,
+				}
+
+				this._handleClick = this._handleClick.bind(this);
+			}
+
+			_handleClick() {
+				this.setState((prevState) => { 
+					return {
+						visibility: !prevState.visibility
+					};
+				});
+			}
+
+			render() {
+					return (
+					<div>
+			 			<h2>visibilityText</h2>
+						 <button onClick={this._handleClick}>
+							{this.state.visibility ? 'Hide the text' : 'Show me text' }
+						</button>
+						<p>
+							{this.state.visibility && 'Here are something you can see now'}
+						</p>
+			 		</div>
+				)
+			}
+		}
+
+		ReactDOM.render(<VisibilityToggle />, document.body);
+	</script>
+
+
+
+</body>
+</html>

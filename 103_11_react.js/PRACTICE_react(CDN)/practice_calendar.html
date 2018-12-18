@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+	<script src="https://unpkg.com/redux@3.7.2/dist/redux.min.js"></script>
+	<title>React-Redux_CDN_Template</title>
+
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: 'Microsoft JhengHei';
+		}
+
+		.calendar_wrapper{
+			width: 310px;
+		}
+
+		.calendar_header {
+			font-size: 0;
+			background-color: #ccc;
+		}
+
+		
+		.calendar_header > div {
+			font-size: 16px;
+			text-align: center;
+			display: inline-block;
+			vertical-align: middle;
+			width: 60%;
+		}
+
+		.calendar_header > p {
+			font-size: 16px;
+			text-align: center;
+			display: inline-block;
+			vertical-align: middle;
+			width: 20%;
+			cursor: pointer;
+			background-color: #777;
+			padding: 12px 0;
+		}
+
+		.show_week {
+			font-size: 16px;
+			
+			
+		}
+
+		.show_days {
+			font-size: 16px;
+		}
+
+		.ul, li {
+			list-style: none;
+			font-size: 0;
+		}
+
+		li {
+			display: inline-block;
+			vertical-align: middle;
+			width: 14.2856%;
+			font-size: 16px;
+			text-align: center;
+			box-sizing: border-box;
+			border: 1px solid #ddd;
+		}
+
+		.show_days::after {
+			content:'';
+			display: block;
+			clear: both;
+		}
+
+		.day {
+			float: left;
+			width: 14.2856%;
+			text-align: center;
+			font-size: 16px;
+			box-sizing: border-box;
+			border: 1px solid #ddd;
+		}
+	</style>
+</head>
+<body>
+
+	<script type="text/babel">
+		class Day extends React.Component {
+			render() {
+				return <div className="day">{this.props.num}</div>
+			}
+		}
+
+		class Calendar extends React.Component {			
+			constructor(props) {
+				super(props);
+
+				this.state = {
+					currentYear: this.props.info.getFullYear(),
+					currentMonth: this.props.info.getMonth(),
+					monthArr: '',
+					monthLength: '',
+				}
+			}
+
+			_calculateMonth(yearVal, monthVal) {
+				const monthdFirstDayVal = new Date(yearVal, monthVal, 1).getDay();
+				const monthLengthVal = new Date(yearVal, monthVal+1, 0).getDate();
+
+				const monthArr = [];
+				for ( let i = 1 ; i <= monthdFirstDayVal ; i++ ) {
+					monthArr.splice(0, 0, '　');
+				}
+
+				for ( let i = 1 ; i <= monthLengthVal ; i++ ) {
+					monthArr.push(i);
+				}
+
+				return {mlen: monthArr.length, mArr: monthArr}
+			};
+
+			_prevMonth() {
+				if (this.state.currentMonth == 0) {
+					this.setState({currentYear: this.state.currentYear -1, currentMonth: 11,});
+				} else {
+					this.setState({currentYear: this.state.currentYear -1});
+				}
+			}
+
+			_nextMonth() {
+				if (this.state.currentMonth == 11) {
+					this.setState({currentYear: this.state.currentYear +1 ,currentMonth: 0});
+				} else {
+					this.setState({currentMonth: this.state.currentMonth +1});
+				}
+			}
+
+			componentWillMount() {
+				const monthArrLen = this._calculateMonth(this.state.currentYear, this.state.currentMonth);
+				this.setState({monthLength: monthArrLen.mlen, monthArr: monthArrLen.mArr});
+			}
+
+			componentWillUpdate() {
+				const monthArrLen = this._calculateMonth(this.state.currentYear, this.state.currentMonth);
+				this.setState({monthLength: monthArrLen.mlen, monthArr: monthArrLen.mArr});
+			}
+
+			render() {
+				let cells = [];
+
+				for( let i = 0 ; i < this.state.monthLength ; i++) {				
+					cells.push(<Day key={i} num={this.state.monthArr[i]}/>);
+				}
+				
+				return (
+					<div className="calendar_wrapper">
+						<div className="calendar_header">
+							<p className="month_btn">
+								<span onClick={this._prevMonth.bind(this)}>上個月</span>
+							</p>
+							<div className="calendar_title">
+								<p className="current_year">
+									{this.state.currentYear}
+								</p>
+								<p className="current_month">
+									{this.state.currentMonth + 1}
+								</p>
+							</div>
+							<p className="month_btn">
+								<span onClick={this._nextMonth.bind(this)}>下個月</span>
+							</p>
+						</div>
+						<ul className="show_week">
+							<li>Sun</li>
+							<li>Mon</li>
+							<li>Tue</li>
+							<li>Wed</li>
+							<li>Thu</li>
+							<li>Fri</li>
+							<li>Sat</li>	
+						</ul>
+						<div className="show_days">
+							{cells}
+						</div>
+					</div>
+				)
+			}
+		}
+		window.addEventListener('load',()=>{
+			ReactDOM.render(<Calendar info={new Date()}/>, document.body)
+		})
+	</script>
+
+
+
+</body>
+</html>
