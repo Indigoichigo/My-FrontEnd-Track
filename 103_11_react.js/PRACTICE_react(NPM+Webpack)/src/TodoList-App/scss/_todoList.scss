@@ -1,0 +1,85 @@
+#todolist_wrapper {
+    background-color: $bg-color;
+    width: 450px;
+    margin: 50px auto;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    padding: 15px;
+
+    #item_wrapper {
+        box-sizing: border-box;
+        padding: 10px 0;
+
+        .item {
+            color: $item;
+            box-sizing: border-box;
+            padding: 10px 0;
+
+            + .item {
+                border-top: 1px solid $item-line;
+            }
+
+            &::after {
+                content: '';
+                display: block;
+                clear: both;
+            }
+           
+            > .remove {
+                color: #999;
+                float: right;
+                cursor: pointer;
+
+                &:hover {
+                    color: $remove;
+                }
+            }
+        }
+    }
+
+
+    #addItem {
+        margin: 10px 0;
+
+        >input,
+        >button { 
+            border: 0px transparent;
+            box-sizing: border-box;
+            padding: 5px;
+            border-radius: $bd-radius;
+            height: 30px;
+        }
+
+        >input {
+            background-color: #fff;
+            margin-right: 10px;
+        }
+
+        >button {
+            background-color: $button-bgc;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $button-hover-bgc;
+                color: $button-hover-color;
+            }
+        }
+    }
+
+    #remove_all {
+        border: 0px transparent;
+        box-sizing: border-box;
+        padding: 5px;
+        border-radius: $bd-radius;
+        height: 30px;
+        background-color: $button-bgc;
+        margin-top:10px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $button-hover-bgc;
+            color: $remove;
+        }
+    }
+
+}
