@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/TodoList-App/app.js',
+    entry: './src/simpleBlog-App/app.js',
     output: {
         path: path.join(__dirname,'dist'),
         filename: 'bundle.js'
