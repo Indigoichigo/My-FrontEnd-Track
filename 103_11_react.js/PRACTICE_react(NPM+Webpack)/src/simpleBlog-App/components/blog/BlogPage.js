@@ -8,9 +8,9 @@ import Header from '../Header';
 const BlogPage = () => (
     <div id="blogpage">
         <div className="blog-banner">
-            Banner here
+            <Header />
         </div>
-        <Header />
+        
         <div className="blog-content clearfix">
             <BlogAside />
             <BlogArticles />

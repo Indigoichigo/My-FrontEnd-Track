@@ -3,7 +3,42 @@
 
     .blog-banner {
         width: 100%;
-        height: 300px;
+        height: 400px;
+        background-image: url('../images/blog/blog-banner2.jpg');
+        background-position: center;
+        position: relative;
+        text-align: center;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        
+    }
+
+    //header-nav in blog page
+    nav {
+        width: 1200px;
+        text-align: left;
+        span {
+            display: inline-block;
+            padding-bottom: 5px;
+
+            > a {
+                display: inline-block;
+                padding-bottom: 5px;
+                font-size: 24px;
+                color: $title;
+                border-bottom: 1px solid transparent;
+                transition: .5s;
+            }
+
+            &:first-child {
+                margin-right: 15px;
+            }
+        }
+
+        span:hover a {
+            border-bottom: 1px solid $title;
+        }
     }
 
     .blog-content{
@@ -19,11 +54,106 @@
         float: left
     }
 
+
+    //aside
     .blog-aside {
         width: 25%;
+        text-align: center;
+
+        > div {
+            margin: 45px 0
+        }
     }
+
+
+    //aside-profile
+    .blog-profile {
+        > .blog-profile___img {
+                
+
+            > img {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                border: 1px solid #333;
+                vertical-align: middle;
+            }
+        }
+
+        > .blog-profile___acc {
+            margin: 10px 0;
+        }
+    }
+
+    
+
+
+    //calendar
+    .calendar_wrapper{
+        width: 100%;
+        
+        .calendar_header {
+            font-size: 0;
+            margin-bottom: 10px;
+
+            > div, p {
+                font-size: 16px;
+                text-align: center;
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            .calendar_title {
+                width: calc( 95% - 30px );
+                color: $item;
+            }
+
+            .month_btn {
+                > img {
+                    width: 15px;
+                    cursor: pointer;
+                }
+            }
+
+            .calendar_title {
+                font-size: 16px;
+        text-align: center;
+            }
+        }
+    }
+
+    .show_week {
+        li {
+            display: inline-block;
+            vertical-align: middle;
+            width: 14.2856%;
+            font-size: 16px;
+            text-align: center;
+            box-sizing: border-box;
+        
+            &:first-child,
+            &:last-child {
+                color: #f00
+            }
+        }
+    }
+
+    .day {
+        float: left;
+        width: 14.2856%;
+        text-align: center;
+        font-size: 16px;
+        box-sizing: border-box;
+        padding: 3px 0;
+
+        &:nth-child(7n),
+        &:nth-child(7n+1), {
+            color: #f00;
+        }
+    }
+
+    //article
     .blog-articles {
         width: 75%;
     }
-
 }

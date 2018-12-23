@@ -6,7 +6,7 @@ import Category from './Category';
 const BlogAside = () => (
     <div className="blog-aside">
         <Profile />
-        <Calendar />
+        <Calendar info={new Date()}/>
         <Category />
     </div>
 );

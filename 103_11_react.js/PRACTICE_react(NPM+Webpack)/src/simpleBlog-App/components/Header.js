@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
 
 const Header = () => (
-    <header>
-        <NavLink to="/blog">Blog</NavLink>
-        <NavLink to="/Album">Album</NavLink>
-    </header>
+    <nav>
+        <span><NavLink to="/blog">Blog</NavLink></span>
+        <span><NavLink to="/Album">Album</NavLink></span>
+    </nav>
 );
 
 export default Header;

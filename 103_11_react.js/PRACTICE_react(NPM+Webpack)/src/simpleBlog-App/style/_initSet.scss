@@ -6,10 +6,12 @@ $remove: #ff5e6a;
 $button-bgc: #999;
 $button-hover-bgc: #333;
 $button-hover-color: #fff;
-
-
 $bd-radius: 5px;
 
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 h1 {
     color: $title;
@@ -22,6 +24,18 @@ h2 {
     font-size: 24px;
 }
 
+h3 {
+    color: $title;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+//for float
 .clearfix::after {
     content: '';
     display: block;
