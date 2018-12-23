@@ -9,35 +9,17 @@
         position: relative;
         text-align: center;
         display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        
+        align-items: center;
+        justify-content: flex-start;
     }
 
-    //header-nav in blog page
-    nav {
+    .blog-title {
         width: 1200px;
+        margin: 0 auto;
         text-align: left;
-        span {
-            display: inline-block;
-            padding-bottom: 5px;
 
-            > a {
-                display: inline-block;
-                padding-bottom: 5px;
-                font-size: 24px;
-                color: $title;
-                border-bottom: 1px solid transparent;
-                transition: .5s;
-            }
-
-            &:first-child {
-                margin-right: 15px;
-            }
-        }
-
-        span:hover a {
-            border-bottom: 1px solid $title;
+        > h2,h3 {
+            margin-bottom: 20px;
         }
     }
 
@@ -70,7 +52,6 @@
     .blog-profile {
         > .blog-profile___img {
                 
-
             > img {
                 width: 100px;
                 height: 100px;

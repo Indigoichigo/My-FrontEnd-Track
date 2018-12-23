@@ -1,0 +1,33 @@
+#createArticlePage {
+
+
+    .createarticle {
+        width: 960px;
+        margin: 80px auto 0 auto;
+
+        form {
+            > p {
+                margin-bottom: 15px;
+            }
+
+            > input {
+                @include inputStyle1;
+                width: 300px;
+                margin-bottom: 30px;
+            }
+
+            > textarea {
+                width: 99%;
+                min-width: 99%;
+                max-width: 99%;
+                border-radius: 3px;
+                height: 50vh;
+                margin-bottom: 30px;
+            }
+
+            > button {
+                @include buttonStyle1
+            }
+        }
+    }
+}

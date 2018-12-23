@@ -1,14 +1,14 @@
 import React from 'react';
 import BlogAside from './BlogAside';
 import BlogArticles from './BlogArticles';
-import Header from '../Header';
+import BlogTitle from './BlogTitle';
 
 
 
 const BlogPage = () => (
     <div id="blogpage">
         <div className="blog-banner">
-            <Header />
+            <BlogTitle />
         </div>
         
         <div className="blog-content clearfix">
