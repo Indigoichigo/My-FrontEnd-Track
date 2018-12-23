@@ -10,7 +10,7 @@ import Header from '../components/Header';
 const BlogRouter = () => (
     <BrowserRouter>
         <div>
-            <Header />
+            {/* <Header className=""/> */}
             <Switch>
                 <Route path="/" component={BlogPage}  exact/>
                 <Route path="/blog" component={BlogPage}  exact/>
