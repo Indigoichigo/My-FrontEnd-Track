@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .active {
+            color: #f00
+        }
+    </style>
+</head>
+<body>
+    
+    <h2>渲染-1</h2>
+    <p id="app">
+        {{message}}
+    </p>
+
+    <h2>渲染-2</h2>
+    <div id="app2">
+        <span v-bind:title="message">
+            hove me
+        </span>
+    </div>
+
+    <h2>if條件</h2>
+    <div id="app3">
+        <p v-if="seen">
+            You Can see me if SEEN is true
+        </p>
+    </div>
+
+    <h2>for迴圈</h2>
+    <div id="app4">
+        <p v-for="n in todos">
+            {{ n.text }}
+        </p>
+    </div>
+
+    <h2>雙向綁定</h2>
+    <div id="app5">
+        <p>{{ message }}</p>
+        <input v-model="message">
+    </div>
+
+    <h2>eventListen</h2>
+    <div id="app6">
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">reverse the text</button>
+
+    </div>
+
+    <h2>component</h2>
+    <!-- 將傳給變數傳給下方元件 -->
+    <div id="app7">
+        <ol>
+            <!-- 這裡是元件，item來自app7的data -->
+            <todo-item
+                v-for="item in webTechs"
+                v-bind:todo="item"
+                v-bind:key="item.id">
+            </todo-item>
+        </ol>
+    </div>
+
+    <h2>原始html輸出</h2>
+    <div id="test2">
+        <p>{{text1}}</p>
+        <p v-html="text2"></p>
+    </div>
+
+    <h2>不要在{{}}中做複雜運算，可直接用依賴的computed</h2>
+    <div id="test3">
+        <p>text: {{ message }}</p>
+        <p>reversed-text {{ reversedMessage }}</p>
+    </div>
+
+    <h2>methods</h2>
+    <div id="test4">
+        <p>text: {{ message }}</p>
+        <p>reversed-text {{ reversedMessage() }}</p>
+    </div>
+    
+    <h2>class</h2>
+    <div id="test5">
+        <p class="static" v-bind:class="{active: isActive}">red</p>
+    </div>
+
+    <h2>advanced if statement</h2>
+    <div id="test6">
+        <p v-if="ok">is fine</p>
+        <p v-else>not fine</p>
+    </div>
+
+    <h2>advanced if statement(use template)</h2>
+    <div id="test7">
+        <temp-if v-if="render">
+            
+        </temp-if>
+    </div>
+
+    <h2>login switch</h2>
+    <div id="test8">
+        <login-by-username v-if="username">
+        </login-by-username>
+        <login-by-email v-else>
+        </login-by-email>
+        <button @click="switchLoginWay">switch</button>
+    </div>
+
+    <h2>v-show</h2>
+    <div id="test9">
+        <p v-show="showEl">hello</p>
+        <button @click="switchLoginWay">switch</button>
+    </div>
+
+    <h2>v-for, second parameter</h2>
+    <div id="test10">
+        <ul>
+            <li v-for="(item, index) in webTechs" :key="item.id"> {{ staticText }} - {{ item.tech }}</li>
+        </ul>
+        
+    </div>
+
+    <h2>v-for, iterator</h2>
+    <div id="test11">
+        <div  v-for="item in trends">
+            <p> {{ item }}</p>
+        </div>
+        <ul  v-for="(item, key) in trends">
+                <li> {{ key }}: {{ item }}</li>
+        </ul>
+    </div>
+
+    <h2>v-for with methods</h2>
+    <div id="test12">
+        <span v-for="n in even(numbers)">{{n}},</span>
+    </div>
+
+
+    <div id="todo-list-example">
+            <form v-on:submit.prevent="addNewTodo">
+              <label for="new-todo">Add a todo</label>
+              <input
+                v-model="newTodoText"
+                id="new-todo"
+                placeholder="E.g. Feed the cat"
+              >
+              <button>Add</button>
+            </form>
+            <ul>
+              <li
+                is="todo-item"
+                v-for="(todo, index) in todos"
+                v-bind:key="todo.id"
+                v-bind:title="todo.title"
+                v-on:remove="todos.splice(index, 1)"
+              ></li>
+            </ul>
+          </div>
+
+    <script src="js/playground/hello.js"></script>
+    
+</body>
+</html>
