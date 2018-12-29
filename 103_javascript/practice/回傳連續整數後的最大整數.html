@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>回傳連續整數後的最大整數</title>
+</head>
+<body>
+	<input type="text" id="str">
+	<p>題目：回傳連續整數後的最大整數</p>
+	<p>計算結果顯示示在console</p>
+
+	<script>
+		//題目：回傳連續整數後的最大整數
+		function findMaxPostive(arr) {
+			maxVal = Math.max(...arr);
+
+			if (maxVal < 0) {
+				return 1;
+			} else if (maxVal == arr.length) {
+				return ++maxVal;
+			} else {
+				arr.sort((a, b) => (a-b));
+				for ( let i = 1 ; i < arr.length ; i++) {
+					if ( !(arr[i] == arr[i++]) ) {
+						return ++arr[i];
+					}
+				}
+			}
+		}
+	
+		console.log(findMaxPostive([-2, -3])) // 1
+		console.log(findMaxPostive([1, 6, 2, 4, 5])) // 3
+		console.log(findMaxPostive([1, 2, 3])) //4
+	</script>
+</body>
+</html>

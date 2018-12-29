@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>將不相同的所有正整數相乘</title>
+</head>
+<body>
+	<p>題目：題目：給定一個陣列，將不相同的所有正整數相乘</p>
+	<p>計算結果顯示示在console</p>
+
+
+	<script type="text/javascript">
+		// 題目：給定一個陣列，將不相同的所有正整數相乘
+
+		let A = [2, -3, 5, 3, 3, 5, 5]; // 30
+		let B = [-2, -8, 3, 4]; // 12
+
+		function solution(arr) {
+			let newArr = [];
+
+			;
+			arr = arr.sort((a,b) => (a-b)).filter((item) => ( item > 0));
+			for ( let i = 0 ; i < arr.length ; i++) {
+				if ( arr[i] !== arr[i+1] ) {
+					newArr.push(arr[i])
+				}
+			};
+			newArr = newArr.reduce((preVal, item) => (preVal * item))
+
+			console.log(newArr)
+		}
+
+
+		solution(A);
+		solution(B);
+
+		
+
+
+
+
+
+
+	</script>
+</body>
+</html>

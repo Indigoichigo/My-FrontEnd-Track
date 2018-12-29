@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>找出最長的句子有幾個單字</title>
+</head>
+<body>
+	<input type="text" id="str">
+	<p>題目：給定一個字串，以.?!切割字串，並計算每個句子有幾個單字</p>
+	<p>計算結果顯示示在console</p>
+
+
+	<script type="text/javascript">
+		//題目：給定一個字串，以.?!切割字串，並計算每個句子有幾個單字
+
+
+		let testString = 'Forget CVs?.Save hello time ! x x';
+
+		const getStr = document.getElementById('str');
+		getStr.addEventListener('change', maxNumberOfString);
+
+		function maxNumberOfString() {
+			const getStr = document.getElementById('str').value;
+			let newStr = getStr;
+			let strArr = [];
+
+
+			//找到?!.回傳index
+			newStr = newStr.replace('?','.');
+			newStr = newStr.replace('!','.');
+			
+
+			//切下來存到陣列
+			while(newStr.indexOf('.') !== -1) {
+				dotIndex = newStr.indexOf('.');
+				subStr = newStr.substring(0, dotIndex).trim();
+				strArr.push(subStr);
+				newStr = newStr.substring(dotIndex+1, newStr.length);
+				console.log(strArr);
+			}
+			
+			//用map對每個陣列值切割並計算長度
+			const countStringLength = strArr.map((item) => (item.split(' ').length));
+			console.log(countStringLength);
+
+			//return最大的長度
+			const maxLength = Math.max(...countStringLength);
+
+			if ( maxLength <= 0 ) {
+				console.log(0)
+			} else {
+				console.log(maxLength)
+			}
+		}
+
+
+
+
+
+
+
+	</script>
+</body>
+</html>
