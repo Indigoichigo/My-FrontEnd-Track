@@ -1,0 +1,8 @@
+.img_box {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.img_box img {
+    width: 100%;
+}
