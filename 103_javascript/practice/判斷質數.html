@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <label>輸入一數字判斷是否為質數
+        <input type="number" id="num">
+    </label>
+    <button id="btn">質數?</button>
+    <p id="showResult"></p>
+
+    <script>
+
+        const getButton = document.getElementById('btn');
+        getButton.addEventListener('click', checkNum)
+
+        function checkNum() {
+            const getNumber = parseInt(document.querySelector('#num').value);
+            
+            if(getNumber <= 0 || getNumber === 1 || getNumber % 2 === 0) {
+                if (getNumber === 2) {
+                    showResult(`${getNumber} 是質數`);
+                    return
+                }
+                showResult(`${getNumber} 不是質數`);
+                return
+            } else {
+
+                for ( let i = 3 ; i < Math.round(getNumber/2) ; i+=2 ) {
+                    if (getNumber % i === 0) {
+                        showResult(`${getNumber} 不是質數`);
+                        return
+                    }
+                }
+
+                showResult(`${getNumber} 是質數`);
+                return
+            }
+        }
+
+        function showResult(text) {
+            const getResult = document.getElementById('showResult');
+            getResult.innerHTML = text;
+        }
+
+    </script>
+</body>
+
+</html>
