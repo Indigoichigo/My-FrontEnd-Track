@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,IAAI,CAAC;EACJ,WAAW,EAAE,4BACd;CAAC",
+    "sources": [
+        "initSet.scss"
+    ],
+    "names": [],
+    "file": "initSet.css"
+}
