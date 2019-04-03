@@ -1,0 +1,184 @@
+step1.
+add a interface(according to request)
+
+export interface {
+  abc: string;
+}
+
+-----------
+
+step2.
+add a entity(accoding to response)
+
+export default class ApplyLeverState {
+  public abc: string = '';
+}
+
+-----------
+
+step3.
+go to service folder
+
+step3-1.
+import network method
+
+import Network, { GetRequest, PostRequest, ServiceRequest} from '@/utils/network';
+
+step3-2.
+import interface write in step1.
+import { IapplyLeverChange} from '@/interface/AccountServiceTyping';
+
+step3-3.
+add an api
+
+@PostRequest('/api/jojoAccount/SendSMSForVerifyMobile')
+public async sendSMSByPhone(sendData: IsendVerify, requestOption?: any) {
+  requestOption.fillter = catchErrorFilter;
+
+  function catchErrorFilter(data: any) {
+    if (!data.IsSuccess) {
+      throw new Error(data.Message);
+    }
+  }
+}
+
+-----------
+step4.
+go to store
+
+step4-1.
+import entities write in step2.
+
+step4-2.
+import services write in step3.
+
+step4-3.
+import utils
+import { State, Repository, Action, Getter, Mutation, Set,} from '@/utils/storeClass';
+
+step4-4.
+new a Service();
+
+const accountService = new AccountService();
+
+step4-5.
+add a repository
+
+@Repository('AccountStore')
+export default class AccountStore {
+
+}
+
+step4-6.
+in the store, add State
+
+@State($1)
+public userInfo: $2;
+
+$1, $2 = entites which import from above
+
+step4-7.
+in the store, add Set
+
+@Set('userInfo') ------------------------> store中的變數
+public setUserInfo(userInfo: $1) {}
+
+$1 = entites which import from above
+
+step4-8.
+in the stroe, add Action
+
+@Action
+public async getUserInfo({ commit, state }: any, sendData: any) {
+  const resData = await $1.$2;
+  commit('setUserInfo', resData);
+}
+
+$1 = service name,
+$2 = api method,
+
+-----------
+
+step5.
+go to vue
+
+step5-1.
+import vuex-class
+
+import { namespace } from 'vuex-class';
+
+step5-2.
+import interface write in step1.
+
+step5-3.
+import entity write in step2.
+
+step5-4.
+new a Service();
+
+const accountService = new AccountService();
+
+step5-5.
+write a state
+
+@namespace('AccountStore').State
+public $1: $2;
+
+$1 = state name,
+$2 = entity,
+
+step5-6.
+write a action;
+@namespace('AccountStore').Action
+public $1: any;
+
+$1 = action name;
+
+step5-6.
+write an async function
+
+public async handleXXXXXX() {
+  const sendData: $1 {
+    // ...
+  }
+
+  try {
+    await this.$2(sendData);
+    const resData: any = this.$3
+
+    // do something...
+
+  } catch(e) {
+    this.$message.error(e.message);
+  }
+}
+
+$1 = interface write in step1.
+$2 = action name
+$3 = state name
+
+
+
+
+
+
+
+
+
+
+
+
+
+括號內是別人的變數
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,139 @@
+{
+  // Place your work-project workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
+  "create interface": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "ts_interface",
+    "body": ["export interface InterFaceName {", "  abc: string;", "}", ""],
+    "description": ""
+  },
+  "create entity": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "ts_entity",
+    "body": [
+      "export default class ClassName {",
+      "  public abc: string = '';",
+      "}",
+      ""
+    ],
+    "description": ""
+  },
+  "import something need in service": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "ts_service_import",
+    "body": [
+      "import Network, { GetRequest, PostRequest, ServiceRequest} from '@/utils/network';",
+      "import { $1 } from '@/interface/$2';"
+    ],
+    "description": ""
+  },
+  "create api": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "ts_api",
+    "body": [
+      "@__METHOD__-Request('__API__')",
+      "  public async __FUNCTION__(sendData: __INTERFACE__, requestOption?: any) {",
+      "  requestOption.fillter = catchErrorFilter;",
+      "",
+      "  function catchErrorFilter(data: any) {",
+      "    if (!data.IsSuccess) {",
+      "      throw new Error(data.Message);",
+      "    }",
+      "  }",
+      "}"
+    ],
+    "description": ""
+  },
+  "import something need in store": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "ts_store_import",
+    "body": [
+      "import { Repository, State, Set, Action } from '@/utils/storeClass';",
+      "import $1 from '@/services/$1';",
+      "import $2 from '@/entities/$2';",
+      "",
+      "const $1 = new $1();"
+    ],
+    "description": ""
+  },
+  "create repository": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "ts_repo",
+    "body": [
+      "@Repository('__STORE_NAME__')",
+      "export default class __STORE_NAME__ {",
+      "",
+      "}",
+      ""
+    ],
+    "description": ""
+  },
+  "create state set action": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "ts_state",
+    "body": [
+      "@State(__ENTITY_NAME__)",
+      "public __STATE_NAME__: __ENTITY_NAME__;",
+      "",
+      "@Set('__STATE_NAME__')",
+      "public __SET_NAME__(__STATE_NAME__: __ENTITY_NAME__) {}",
+      "",
+      "@Action",
+      "public async __ACTION_NAME__({ commit, state }: any, sendData: any) {",
+      "  const resData = await __SERVICE_NAME__.__API_METHOD__;",
+      "  commit('__SET_NAME__', resData);",
+      ""
+    ],
+    "description": ""
+  },
+  "import something need in vue": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "vuex_import",
+    "body": [
+      "import { namespace } from 'vuex-class';",
+      "import { $1 } from '@/interface/$2';",
+      "import __ENTITY_NAME__ from '@/entities/__ENTITY_NAME__';"
+    ],
+    "description": ""
+  },
+  "use state and action": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "vuex_use",
+    "body": [
+      "@namespace('__STORE_NAME__').State",
+      "public __STATE_NAME__: __ENTITY_NAME__;",
+      "",
+      "@namespace('__STORE_NAME__').Action",
+      "public __ACTION_NAME__: any;",
+      ""
+    ],
+    "description": ""
+  },
+  "send api function": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "vuex_request_api",
+    "body": [
+      "public async handleXXXXXX() {",
+      "  const sendData: __INTERFACE_NAME__ {",
+      "    // ...",
+      "  }",
+      "",
+      "  try {",
+      "    await this.__VUEX_ACTION__(sendData);",
+      "    const resData: any = this.__VUEX_STATE__",
+      "",
+      "    // do something...",
+      "",
+      "  } catch(e) {",
+      "    this.$message.error(e.message);",
+      "  }",
+      "}"
+    ],
+    "description": ""
+  }
+}
